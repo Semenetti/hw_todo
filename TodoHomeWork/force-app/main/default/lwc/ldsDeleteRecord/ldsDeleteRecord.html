@@ -1,0 +1,28 @@
+<template>
+  <lightning-card title="Delete Todo" icon-name="standard:record">
+    <template if:true={todos}>
+      <div class="slds-var-m-around_medium">
+        <template for:each={todos} for:item="todo">
+          <lightning-layout
+            key={todo.Id}
+            class="slds-var-m-vertical_x-small"
+          >
+            <lightning-layout-item flexibility="grow">
+              {todo.Name}
+            </lightning-layout-item>
+            <lightning-layout-item>
+              <lightning-button-icon
+                icon-name="utility:delete"
+                onclick={deleteTodo}
+                data-recordid={todo.Id}
+              ></lightning-button-icon>
+            </lightning-layout-item>
+          </lightning-layout>
+        </template>
+      </div>
+    </template>
+    <template if:true={error}>
+      <c-error-panel errors={error}></c-error-panel>
+    </template>
+  </lightning-card>
+</template>

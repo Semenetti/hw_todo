@@ -1,0 +1,26 @@
+<template>
+  <lightning-card title="Create Todo in Modal">
+    <lightning-button
+      label="Create Todo"
+      onclick={showModal}
+    ></lightning-button>
+    <template if:true={openModal}>
+      <div class="slds-modal slds-fade-in-open slds backdrop">
+        <div class="slds-modal__container">
+          <div class="slds-modal__header">
+            <lightning-button-icon
+              icon-name="utility:close"
+              alternative-text="Close this window"
+              size="large"
+              variant="bare-inverse"
+              onclick={closeModal}
+              class="slds-modal__close"
+            ></lightning-button-icon>
+            <h2>Create Todos</h2>
+          </div>
+          <c-todo-item onsuccess={handleSuccess}></c-todo-item>
+        </div>
+      </div>
+    </template>
+  </lightning-card>
+</template>

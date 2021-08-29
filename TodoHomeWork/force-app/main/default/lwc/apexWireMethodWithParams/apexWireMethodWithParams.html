@@ -1,0 +1,64 @@
+<template>
+  <lightning-card class="slds-var-m-around_medium" title="" icon-name="">
+    <lightning-input
+      type="search"
+      onchange={handleKeyChange}
+      class="slds-var-m-bottom_small"
+      label="Search"
+      value={searchKey}
+    ></lightning-input>
+    <lightning-layout
+      multiple-rows
+      class="slds-var-m-vertical_xxx-small header"
+    >
+      <lightning-layout-item size="6" padding="around-small">
+        <div
+          class="
+            custom-box
+            slds-box
+            slds-p-around_xxx-small
+            slds-text-align_center
+          "
+        >
+          Todo Name
+        </div>
+      </lightning-layout-item>
+      <lightning-layout-item size="6" padding="around-small">
+        <div
+          class="
+            custom-box
+            slds-box
+            slds-p-around_xxx-small
+            slds-text-align_center
+          "
+        >
+          Category
+        </div>
+      </lightning-layout-item>
+    </lightning-layout>
+
+    <template if:true={todos.data}>
+      <template for:each={todos.data} for:item="todo">
+        <lightning-layout
+          multiple-rows
+          key={todo.Id}
+          class="slds-var-m-vertical_xxx-small slds-box slds-box_xx-small"
+        >
+          <lightning-layout-item size="6" padding="around-small">
+            <div class="slds-p-around_xxx-small slds-text-align_center">
+              {todo.Name}
+            </div>
+          </lightning-layout-item>
+          <lightning-layout-item size="6" padding="around-small">
+            <div class="slds-p-around_xxx-small slds-text-align_center">
+              {todo.Category__c}
+            </div>
+          </lightning-layout-item>
+        </lightning-layout>
+      </template>
+    </template>
+    <template if:true={todos.error}>
+      <c-error-panel errors={todos.error}></c-error-panel>
+    </template>
+  </lightning-card>
+</template>

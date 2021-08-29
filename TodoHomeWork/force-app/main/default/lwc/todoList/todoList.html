@@ -1,0 +1,218 @@
+<template>
+  <lightning-card title="Update Todo" icon-name="standard:record">
+    <template if:true={todos}>
+      <lightning-layout
+        multiple-rows
+        class="slds-var-m-vertical_xxx-small header"
+      >
+        <lightning-layout-item size="2" padding="around-small">
+          <div
+            class="
+              custom-box
+              slds-box
+              slds-p-around_xxx-small
+              slds-text-align_center
+            "
+          >
+            Todo Name
+          </div>
+        </lightning-layout-item>
+        <lightning-layout-item size="2" padding="around-small">
+          <div
+            class="
+              custom-box
+              slds-box
+              slds-p-around_xxx-small
+              slds-text-align_center
+            "
+          >
+            Description
+          </div>
+        </lightning-layout-item>
+        <lightning-layout-item size="2" padding="around-small">
+          <div
+            class="
+              custom-box
+              slds-box
+              slds-p-around_xxx-small
+              slds-text-align_center
+            "
+          >
+            Priority
+          </div>
+        </lightning-layout-item>
+        <lightning-layout-item size="1" padding="around-small">
+          <div
+            class="
+              custom-box
+              slds-box
+              slds-p-around_xxx-small
+              slds-text-align_center
+            "
+          >
+            Image
+          </div>
+        </lightning-layout-item>
+        <lightning-layout-item size="2" padding="around-small">
+          <div
+            class="
+              custom-box
+              slds-box
+              slds-p-around_xxx-small
+              slds-text-align_center
+            "
+          >
+            Category
+          </div>
+        </lightning-layout-item>
+
+        <lightning-layout-item size="2" padding="around-small">
+          <div
+            class="
+              custom-box
+              slds-box
+              slds-p-around_xxx-small
+              slds-text-align_center
+            "
+          >
+            Status
+          </div>
+        </lightning-layout-item>
+        <lightning-layout-item size="1" padding="around-small">
+          <div
+            class="
+              custom-box
+              slds-box
+              slds-p-around_xxx-small
+              slds-text-align_center
+            "
+          >
+            Edit
+          </div>
+        </lightning-layout-item>
+      </lightning-layout>
+
+      <div
+        class="
+          slds-box slds-box_xx-small
+          slds-p-around_none
+          slds-m-top_xxx-small
+          slds-m-bottom_medium
+          slds-m-horizontal_none
+        "
+      >
+        <template for:each={todos} for:item="todo">
+          <lightning-layout
+            multiple-rows
+            key={todo.Id}
+            class="slds-var-m-vertical_xxx-small slds-box slds-box_xx-small"
+          >
+            <lightning-layout-item size="2" padding="around-small">
+              <div class="slds-p-around_xxx-small slds-text-align_center">
+                {todo.Name}
+              </div>
+            </lightning-layout-item>
+            <lightning-layout-item size="2" padding="around-small">
+              <div class="slds-p-around_xxx-small slds-text-align_center">
+                {todo.Description__c}
+              </div>
+            </lightning-layout-item>
+            <lightning-layout-item size="2" padding="around-small">
+              <div class="slds-p-around_xxx-small slds-text-align_center">
+                {todo.Priority__c}
+              </div>
+            </lightning-layout-item>
+            <lightning-layout-item size="1" padding="around-small">
+              <div class={todo.Color__c}></div>
+            </lightning-layout-item>
+            <lightning-layout-item size="2" padding="around-small">
+              <div class={todo.Category_color__c}>{todo.Category__c}</div>
+            </lightning-layout-item>
+
+            <lightning-layout-item size="2" padding="around-small">
+              <div class="slds-p-around_xxx-small slds-text-align_center">
+                {todo.isDone__c}
+              </div>
+            </lightning-layout-item>
+            <lightning-layout-item size="1" padding="around-small">
+              <div class="slds-p-around_xxx-small slds-text-align_center">
+                <lightning-button-icon
+                  icon-name="utility:record_update"
+                  onclick={showModal}
+                  data-recordid={todo.Id}
+                ></lightning-button-icon>
+              </div>
+            </lightning-layout-item>
+          </lightning-layout>
+        </template>
+      </div>
+    </template>
+
+    <template if:true={openModal}>
+      <div class="slds-modal slds-fade-in-open slds backdrop">
+        <div class="slds-modal__container">
+          <div class="slds-modal__header">
+            <lightning-button-icon
+              icon-name="utility:close"
+              alternative-text="Close this window"
+              size="large"
+              variant="bare-inverse"
+              onclick={closeModal}
+              class="slds-modal__close"
+            ></lightning-button-icon>
+            <h2>Update Todos</h2>
+          </div>
+          
+          <lightning-record-edit-form
+            id="recordViewForm"
+            object-api-name={objectApiName}
+            record-id={id}
+          >
+            <div class="slds-modal__content slds-p-around_xxx-small">
+              <lightning-input-field
+                class="inputName"
+                field-name={todoName}
+                onchange={handleInputName}
+              ></lightning-input-field>
+              <lightning-input-field
+                class="inputDescription"
+                field-name={todoDescription}
+                onchange={handleInputDescription}
+              ></lightning-input-field>
+              <lightning-input-field
+                class="inputPriority"
+                field-name={todoPriority}
+                onchange={handleInputPriority}
+              ></lightning-input-field>
+              <lightning-input-field
+                class="inputCategory"
+                field-name={todoCategory}
+                onchange={handleInputCategory}
+              ></lightning-input-field>
+              <lightning-input-field
+                class="inputStatus"
+                field-name={todoStatus}
+                onchange={handleInputStatus}
+              ></lightning-input-field>
+            </div>
+
+            <div class="slds-modal__footer">
+              <lightning-button
+                class="slds-m-top_small"
+                value="brand"
+                type="submit"
+                name="update"
+                label="Update"
+                onclick={updateTodo}
+              ></lightning-button>
+            </div>
+          </lightning-record-edit-form>
+        </div>
+      </div>
+    </template>
+
+    <template if:true={error}>
+      <c-error-panel errors={error}></c-error-panel>
+    </template>
+  </lightning-card>
+</template>

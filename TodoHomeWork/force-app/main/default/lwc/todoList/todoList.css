@@ -1,0 +1,40 @@
+.header {
+  font-weight: 900;
+}
+
+.green,
+.red,
+.yellow {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 20px;
+  height: 20px;
+}
+.green {
+  background-image: url("/img/samples/flag_green.gif");
+}
+.red {
+  background-image: url("/img/samples/flag_red.gif");
+}
+.yellow {
+  background-image: url("/img/samples/flag_yellow.gif");
+}
+
+.pink,
+.blue,
+.orange {
+  font-weight: 900;
+  color: #fff;
+  text-align: center;
+}
+
+.pink {
+  background: pink;
+}
+.blue {
+  background: blue;
+}
+.orange {
+  background: orange;
+}
