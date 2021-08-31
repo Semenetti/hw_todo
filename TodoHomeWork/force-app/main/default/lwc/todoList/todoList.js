@@ -28,6 +28,7 @@ export default class TodoList extends LightningElement {
   newDescription = "";
   newPriority = "";
   newStatus = "";
+  newCategory = "";
 
   openModal = false;
 
@@ -69,10 +70,10 @@ export default class TodoList extends LightningElement {
     this.newPriority = event.target.value;
   }
   handleInputCategory(event) {
-    this.todoCategory = event.target.value;
+    this.newCategory = event.target.value;
   }
   handleInputStatus(event) {
-    this.todoStatus = event.target.checked;
+    this.newStatus = event.target.checked;
   }
 
   updateTodo() {
@@ -88,8 +89,8 @@ export default class TodoList extends LightningElement {
     fields[TODO_NAME.fieldApiName] = this.newName;
     fields[TODO_DESCRIPTION.fieldApiName] = this.newDescription;
     fields[TODO_PRIORITY.fieldApiName] = this.newPriority;
-    fields[TODO_CATEGORY.fieldApiName] = this.todoCategory;
-    fields[TODO_STATUS.fieldApiName] = this.todoStatus;
+    fields[TODO_CATEGORY.fieldApiName] = this.newCategory;
+    fields[TODO_STATUS.fieldApiName] = this.newStatus;
 
     const recordInput = { fields };
     this.openModal = false;
@@ -104,7 +105,6 @@ export default class TodoList extends LightningElement {
           })
         );
         return refreshApex(this.wiredTodosResult); // почему нельзу просто todos рефрешить?
-        // return refreshApex(this.wiredTodos); // почему нельзу просто todos рефрешить?
       })
       .catch((error) => {
         this.dispatchEvent(
